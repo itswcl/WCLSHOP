@@ -5,6 +5,3 @@ from flask_app.models.model_user import User
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
-@app.route("/")
-def index():
-    return render_template("index.html")
