@@ -21,10 +21,17 @@
                     <div class="form-group">
                         <form action="/cart/add" method="POST">
                             <input name="product_id" type="hidden" value="{{ inventory.id }}" />
+                            <input name="product_picture" type="hidden" value="{{ inventory.picture }}" />
                             <input name="product_name" type="hidden" value="{{ inventory.name }}" />
+                            <input name="product_size" type="hidden" value="{{ inventory.size }}" />
+                            <input name="product_price" type="hidden" value="{{ inventory.price }}" />
                             <button class="btn" type="submit">Add to Cart</button>
                         </form>
                     </div>
+
+                    <form action="/create-checkout-session/" method="POST">
+                        <button class="btn" type="submit" id="checkout-button">Checkout</button>
+                    </form>
 
                 </div>
             </div>
@@ -32,7 +39,7 @@
         <div class="col-1"></div>
 
         <nav class="col d-flex flex-column justify-content-center min-vh-100 position-fixed" style="right: 100px">
-            <a href="#" class="mx-auto"><i class="bi bi-cart text-dark" style="font-size: 50px;"></i></a>
+            <a href="/shop/cart" class="mx-auto"><i class="bi bi-cart text-dark" style="font-size: 50px;"></i></a>
             <a name="" id="" class="btn text-light mx-5 bg-dark" href="#" role="checkout">CheckOut</a>
             <ul class="list-inline text-center">
                 <li class="list-inline-item list-group">
