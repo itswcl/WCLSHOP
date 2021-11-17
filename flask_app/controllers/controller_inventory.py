@@ -17,6 +17,7 @@ def one_product(id):
 @app.route("/shop/cart")
 def cart_page():
     return render_template("cart_page.html")
+
 # @app.route("/shop/<string:category_name>")
 # def products(category_name):
 #     Inventory.all_items()

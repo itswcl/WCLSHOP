@@ -24,6 +24,7 @@ class Inventory():
         inventories = []
         for row in results:
             inventories.append(cls(row))
+
         return inventories
 
     # READ One
