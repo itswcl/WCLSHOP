@@ -10,38 +10,15 @@
 </head>
 <body>
     <div class="container d-flex">
-        <div class="col d-flex flex-column justify-content-center min-vh-100">
-            <div class="row">
-                <div class="col text-center ">
-                    <img class="card-img-top" style="height: 220px; width: 250px;" src="{{ inventory.picture }}" alt="{{ inventory.name }}">
-                    <p class="card-body">Name {{ inventory.name }}</p>
-                    <p class="card-body">Size {{ inventory.size }}</p>
-                    <p class="card-body">${{ inventory.price / 100 }}</p>
+        <div class="w-100 p-5 d-flex flex-wrap justify-content-start">
 
-                    <div class="form-group">
-                        <form action="/cart/add" method="POST">
-                            <input name="product_id" type="hidden" value=" inventories.id " />
-                            <button class="btn" type="submit">Add to Cart</button>
-                        </form>
-                    </div>
+            <h1>construction</h1>
 
-                    <form action="/create-checkout-session/" method="POST">
-                        <input type="hidden" name="image" id="" value="{{ inventory.picture }}">
-                        <input type="hidden" name="name" id="" value="{{ inventory.name }}">
-                        <input type="hidden" name="price" id="" value="{{ inventory.price }}">
-                        <button class="btn" type="submit" id="checkout-button">Checkout</button>
-                    </form>
-
-                </div>
-            </div>
         </div>
 
         <nav class="col-4 d-flex flex-column justify-content-center min-vh-100 position-fixed" style="right: 0px">
-
-            <a href="/shop/cart" class="mx-auto">
-                <span class="p1 fa-stack fa-2x has-badge" data-count="4"><i class="bi bi-cart text-dark" style="font-size: 50px;"></i></span>
-            </a>
-            <a name="" id="" class="btn text-light bg-dark mx-auto" href="#" role="checkout">CheckOut</a>
+            <a href="/shop/cart" class="mx-auto"><i class="bi bi-cart text-dark" style="font-size: 50px;"></i></a>
+            <a name="" id="" class="btn text-light mx-auto bg-dark" href="#" role="checkout">CheckOut</a>
             <ul class="list-inline text-center">
                 <li class="list-inline-item list-group">
                     <a href="/shop/all" class="text-decoration-none text-dark">All</a>

@@ -18,12 +18,11 @@ def one_product(id):
 def cart_page():
     return render_template("cart_page.html")
 
-# @app.route("/shop/<string:category_name>")
-# def products(category_name):
-#     Inventory.all_items()
-#     return render_template("products_page.html")
+@app.route("/shop/all/<category_name>/")
+def category_products(category_name):
+    return render_template("products_page.html", inventories = Inventory.category_items({"category_name": category_name}))
 
-# @app.route("/shop/testimonial")
-# def testimonial():
-#     return render_template("testimonial.html")
+@app.route("/testimonial")
+def testimonial():
+    return render_template("test_page.html")
 
