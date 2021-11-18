@@ -1,7 +1,8 @@
+from flask.globals import session
 from flask_app import app
 import os
-from flask import Flask, redirect, request
-
+from flask import Flask, redirect, request, render_template_string
+from flask_app.models import model_inventory
 import stripe
 
 from flask_app.models.model_inventory import Inventory
@@ -12,19 +13,10 @@ YOUR_DOMAIN = 'http://localhost:5000'
 
 @app.route('/create-checkout-session/', methods=['POST'])
 def create_checkout_session():
-
-    # item = stripe.Product.create(
-    #     name = request.form["name"]
-    # )
-
-    # item.images.append(request.form["image"])
-    # print(item)
-
-    # price = stripe.Price.create(
-    #     unit_amount = request.form["price"],
-    #     currency = "usd",
-    #     product = item["id"]
-    # )
+    session["id"] = request.form["id"]
+    session["name"] = request.form["name"]
+    session["image"] = request.form["image"]
+    session["price"] = request.form["price"]
 
     try:
         checkout_session = stripe.checkout.Session.create(
@@ -42,25 +34,53 @@ def create_checkout_session():
                 'price_data': {
                     'currency': 'usd',
                     'product_data': {
-                    'name': request.form["name"],
-                    'images' : [request.form["image"]]
+                    'name': session["name"],
+                    'images' : [session["image"]]
                     },
-                    'unit_amount': request.form["price"],
+                    'unit_amount': session["price"],
                 },
                 'quantity': 1,
-            }
+                }
             ],
 
             payment_method_types=[
                 'card',
             ],
 
+            shipping_address_collection= {
+                "allowed_countries": ["US", "CA"],
+            },
+
+            shipping_options=[
+                {
+                    'shipping_rate_data': {
+                        'type': 'fixed_amount',
+                        'fixed_amount': {
+                        'amount': 0,
+                        'currency': 'usd',
+                        },
+                        'display_name': 'Free shipping',
+                    }
+                },
+            ],
+
             mode='payment',
-            success_url=YOUR_DOMAIN + "/success.html",
+            success_url=YOUR_DOMAIN + "/shop/success?session_id={CHECKOUT_SESSION_ID}",
             cancel_url=YOUR_DOMAIN + "/shop/all",
         )
 
     except Exception as e:
         return str(e)
 
+    # print(request.form["id"])
     return redirect(checkout_session.url, code=303)
+
+@app.route('/shop/success', methods=['GET'])
+def order_success():
+    session_stripe = stripe.checkout.Session.retrieve(request.args.get('session_id'))
+    # print(session)
+    customer = stripe.Customer.retrieve(session_stripe.customer)
+    # print(stripe.Customer.retrieve(session.customer))
+    Inventory.delete_item({"id": session["id"]})
+
+    return render_template_string(f'<html><body><h1>Thanks for your order, {customer.name}!<a href="/shop/all">All</a></h1></body></html>')

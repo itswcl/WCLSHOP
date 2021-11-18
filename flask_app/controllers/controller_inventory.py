@@ -12,7 +12,9 @@ def all_products():
 
 @app.route("/shop/<int:id>")
 def one_product(id):
-    return render_template("detail_page.html", inventory = Inventory.one_item({"id": id}))
+    inventory = Inventory.one_item({"id": id})
+    # print (inventory.id)
+    return render_template("detail_page.html", inventory = inventory)
 
 @app.route("/shop/cart")
 def cart_page():
