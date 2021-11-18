@@ -1,9 +1,5 @@
-from flask.globals import session
-from flask.templating import render_template
 from flask_app import app
-import os
-from flask import Flask, redirect, request, render_template_string
-from flask_app.models import model_inventory
+from flask import redirect, request, render_template, session
 import stripe
 
 from flask_app.models.model_inventory import Inventory
@@ -15,9 +11,9 @@ YOUR_DOMAIN = 'http://localhost:5000'
 @app.route('/create-checkout-session/', methods=['POST'])
 def create_checkout_session():
     session["id"] = request.form["id"]
-    session["name"] = request.form["name"]
-    session["image"] = request.form["image"]
-    session["price"] = request.form["price"]
+    # session["name"] = request.form["name"]
+    # session["image"] = request.form["image"]
+    # session["price"] = request.form["price"]
 
     try:
         checkout_session = stripe.checkout.Session.create(
@@ -76,7 +72,7 @@ def create_checkout_session():
     # print(request.form["id"])
     return redirect(checkout_session.url, code=303)
 
-@app.route('/shop/success', methods=['GET'])
+@app.route('/shop/success')
 def order_success():
     session_stripe = stripe.checkout.Session.retrieve(request.args.get('session_id'))
     # print(session_stripe)
