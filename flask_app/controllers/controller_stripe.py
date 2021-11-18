@@ -1,4 +1,5 @@
 from flask.globals import session
+from flask.templating import render_template
 from flask_app import app
 import os
 from flask import Flask, redirect, request, render_template_string
@@ -78,9 +79,9 @@ def create_checkout_session():
 @app.route('/shop/success', methods=['GET'])
 def order_success():
     session_stripe = stripe.checkout.Session.retrieve(request.args.get('session_id'))
-    # print(session)
+    # print(session_stripe)
     customer = stripe.Customer.retrieve(session_stripe.customer)
-    # print(stripe.Customer.retrieve(session.customer))
+    print(customer)
     Inventory.delete_item({"id": session["id"]})
 
-    return render_template_string(f'<html><body><h1>Thanks for your order, {customer.name}!<a href="/shop/all">All</a></h1></body></html>')
+    return render_template("success.html", customer = customer)
