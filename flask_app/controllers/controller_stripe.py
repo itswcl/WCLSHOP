@@ -11,9 +11,9 @@ YOUR_DOMAIN = 'http://localhost:5000'
 @app.route('/create-checkout-session/', methods=['POST'])
 def create_checkout_session():
     session["id"] = request.form["id"]
-    # session["name"] = request.form["name"]
-    # session["image"] = request.form["image"]
-    # session["price"] = request.form["price"]
+    session["name"] = request.form["name"]
+    session["image"] = request.form["image"]
+    session["price"] = request.form["price"]
 
     try:
         checkout_session = stripe.checkout.Session.create(
