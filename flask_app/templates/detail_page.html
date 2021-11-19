@@ -14,8 +14,8 @@
             <div class="row">
                 <div class="col text-center ">
                     <img class="card-img-top" style="height: 220px; width: 250px;" src="{{ inventory.picture }}" alt="{{ inventory.name }}">
-                    <p class="card-body">{{ inventory.name }}</p>
-                    <p class="card-body">{{ inventory.size }}</p>
+                    <p class="card-body">Name {{ inventory.name }}</p>
+                    <p class="card-body">Size {{ inventory.size }}</p>
                     <p class="card-body">${{ inventory.price / 100 }}</p>
 
                     <!-- <div class="form-group">
@@ -27,10 +27,6 @@
 
                     <form action="/create-checkout-session/" method="POST">
                         <input type="hidden" name="id" id="" value="{{ inventory.id }}">
-                        <!-- retrite the info below from db by id -->
-                        <input type="hidden" name="image" id="" value="{{ inventory.picture }}">
-                        <input type="hidden" name="name" id="" value="{{ inventory.name }}">
-                        <input type="hidden" name="price" id="" value="{{ inventory.price }}">
                         <button class="btn" type="submit" id="checkout-button">Checkout</button>
                     </form>
 
