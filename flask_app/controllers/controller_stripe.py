@@ -6,7 +6,8 @@ from flask_app.models.model_inventory import Inventory
 # This is a sample test API key. Sign in to see examples pre-filled with your key.
 stripe.api_key = 'sk_test_51J6cbdH6XBwBmUIZcdaYXRymcIZk2Dh16ZSUbYweWpF5diTkOwgrCdWvQpIpy0Ye8UIelUDVyEqqKdTDT6FF0ybH00LCsrFYFD'
 
-YOUR_DOMAIN = 'http://localhost:5000'
+YOUR_DOMAIN = 'http://18.189.49.147/'
+# YOUR_DOMAIN = 'http://localhost:5000'
 
 @app.route('/create-checkout-session/', methods=['POST'])
 def create_checkout_session():
