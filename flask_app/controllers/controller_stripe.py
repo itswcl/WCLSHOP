@@ -80,6 +80,6 @@ def order_success():
     # print(session_stripe)
     customer = stripe.Customer.retrieve(session_stripe.customer)
     print(customer)
-    Inventory.delete_item({"id": session["id"]})
+    Inventory.update_availability({"id": session["id"]})
 
     return render_template("success.html", customer = customer)

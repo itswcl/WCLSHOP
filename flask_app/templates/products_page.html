@@ -14,9 +14,10 @@
 
                 {% for inventory in inventories %}
                     <div class="text-center">
-                        <a href="/shop/{{ inventory.id }}" class="text-dark">
+                        <a href="/shop/{{ inventory.id }}" class="text-dark text-decoration-none">
                             <img class="card-img-top" style="height: 220px; width: 250px;" src="{{ inventory.picture }}" alt="{{ inventory.name }}">
                             <p class="card-body fw-bold">{{ inventory.name }}</p>
+                            <p class="my-auto"> Size {{ inventory.size }}</p>
                         </a>
                     </div>
                 {% endfor %}

@@ -8,7 +8,7 @@ def index():
 
 @app.route("/shop/all")
 def all_products():
-    return render_template("products_page.html", inventories = Inventory.all_items())
+    return render_template("products_page.html", inventories = Inventory.sale_items())
 
 @app.route("/shop/<int:id>")
 def one_product(id):

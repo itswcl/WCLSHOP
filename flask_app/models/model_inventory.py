@@ -9,11 +9,13 @@ class Inventory():
         self.size = data["size"]
         self.price = data["price"]
         self.picture = data["picture"]
+        self.availability = data["availability"]
         self.created_at = data["created_at"]
         self.updated_at = data["updated_at"]
         self.category_id = data["category_id"]
 
     # CRUD create read update delete
+
     # READ ALL items
     @classmethod
     def all_items(cls):
@@ -27,6 +29,7 @@ class Inventory():
 
         return inventories
 
+
     # READ One
     @classmethod
     def one_item(cls, data):
@@ -36,6 +39,7 @@ class Inventory():
 
         if results:
             return Inventory(results[0])
+
 
     # READ by category
     @classmethod
@@ -52,6 +56,34 @@ class Inventory():
             inventories.append(cls(row))
 
         return inventories
+
+
+    # READ by availability
+    @classmethod
+    def sale_items(cls):
+        query = '''
+                SELECT * FROM inventories
+                WHERE availability = 1
+                '''
+        results = connectToMySQL(cls.db).query_db(query)
+
+        inventories = []
+        for row in results:
+            inventories.append(cls(row))
+
+        return inventories
+
+
+    # Update availability from 1 to 0 if check out
+    @classmethod
+    def update_availability(cls, data):
+        query = '''
+                UPDATE inventories
+                SET availability = 0, updated_at = NOW()
+                WHERE id = %(id)s
+                '''
+        return connectToMySQL(cls.db).query_db(query, data)
+
 
     # Delete the item from page once checkout success
     @classmethod
