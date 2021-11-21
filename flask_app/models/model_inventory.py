@@ -16,6 +16,18 @@ class Inventory():
 
     # CRUD create read update delete
 
+    # Create item from frontend
+    @classmethod
+    def add_item(cls, data):
+        query = '''
+                INSERT INTO inventories
+                (name, size, price, picture, availability, category_id)
+                VALUES
+                (%(name)s, %(size)s, %(price)s, %(picture)s, %(availability)s, %(category_id)s, )
+                '''
+        return connectToMySQL(cls.db).query_db(query, data)
+
+
     # READ ALL items
     @classmethod
     def all_items(cls):
@@ -47,14 +59,15 @@ class Inventory():
         query = '''SELECT * FROM inventories
                 LEFT JOIN categories
                 ON inventories.category_id = categories.id
-                WHERE categories.category_name LIKE %(category_name)s'''
+                WHERE categories.category_name LIKE %(category_name)s
+                AND availability = 1
+                '''
 
         results = connectToMySQL(cls.db).query_db(query, data)
 
         inventories = []
         for row in results:
             inventories.append(cls(row))
-
         return inventories
 
 
@@ -85,7 +98,7 @@ class Inventory():
         return connectToMySQL(cls.db).query_db(query, data)
 
 
-    # Delete the item from page once checkout success
+    # Delete the item in DB from frontend
     @classmethod
     def delete_item(cls, data):
         query = '''DELETE FROM inventories

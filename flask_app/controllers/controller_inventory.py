@@ -8,7 +8,17 @@ def index():
 
 @app.route("/shop/all")
 def all_products():
-    return render_template("products_page.html", inventories = Inventory.sale_items())
+    if not session:
+        return render_template(
+            "products_page.html",
+            inventories = Inventory.sale_items(),
+        )
+    else:
+        return render_template(
+            "products_page.html",
+            inventories = Inventory.sale_items(),
+            session = session["uuid"]
+        )
 
 @app.route("/shop/<int:id>")
 def one_product(id):

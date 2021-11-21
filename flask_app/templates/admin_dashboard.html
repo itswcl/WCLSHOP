@@ -10,23 +10,30 @@
 </head>
 <body>
     <div class="container d-flex">
-        <div class="w-100 p-5 d-flex flex-wrap justify-content-start">
-
-                {% for inventory in inventories %}
-                    <div class="text-center">
-                        <a href="/shop/{{ inventory.id }}" class="text-dark text-decoration-none">
-                            <img class="card-img-top" style="height: 220px; width: 250px;" src="{{ inventory.picture }}" alt="{{ inventory.name }}">
-                            <p class="card-body fw-bold">{{ inventory.name }}</p>
-                            <p class="my-auto"> Size {{ inventory.size }}</p>
-                        </a>
-                    </div>
-                {% endfor %}
-
+        <div class="w-75 p-5 d-flex flex-wrap justify-content-start">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Size</th>
+                        <th>Price</th>
+                        <th>picture</th>
+                        <th>availability</th>
+                        <th>category</th>
+                        <th>Option</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
         <nav class="col-4 d-flex flex-column justify-content-center min-vh-100 position-fixed" style="right: 0px">
-            <a href="/shop/cart" class="mx-auto"><i class="bi bi-cart text-dark" style="font-size: 50px;"></i></a>
-            <a name="" id="" class="btn text-light mx-auto bg-dark" href="#" role="checkout">CheckOut</a>
             <ul class="list-inline text-center">
                 <li class="list-inline-item list-group">
                     <a href="/shop/all" class="text-decoration-none text-dark">All</a>
@@ -46,11 +53,9 @@
                 <li class="list-inline-item list-group">
                     <a href="/" class="text-decoration-none text-dark">WCL</a>
                 </li>
-                {% if session %}
                 <li class="list-inline-item list-group">
-                    <a href="/admin" class="text-decoration-none text-dark">Admin</a>
+                    <a href="/logout" class="text-decoration-none text-dark">Logout</a>
                 </li>
-                {% endif %}
             </ul>
         </nav>
     </div>
