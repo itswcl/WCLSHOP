@@ -38,3 +38,7 @@ def category_products(category_name):
 def testimonial():
     return render_template("test_page.html")
 
+@app.route("/shop/<int:id>/delete")
+def delete_product(id):
+    Inventory.delete_item({"id": id})
+    return redirect("/admin")

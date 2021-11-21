@@ -13,6 +13,7 @@ class Inventory():
         self.created_at = data["created_at"]
         self.updated_at = data["updated_at"]
         self.category_id = data["category_id"]
+        self.category_name = ""
 
     # CRUD create read update delete
 
@@ -31,14 +32,21 @@ class Inventory():
     # READ ALL items
     @classmethod
     def all_items(cls):
-        query = "SELECT * FROM inventories"
+        query = '''
+                SELECT * FROM inventories
+                LEFT JOIN categories
+                ON inventories.category_id = categories.id
+                '''
 
         results = connectToMySQL(cls.db).query_db(query)
-
         inventories = []
         for row in results:
+            # data = {
+            #     **row,
+            #     self.category_name: row["category_name"],
+            # }
+            # print(data)
             inventories.append(cls(row))
-
         return inventories
 
 

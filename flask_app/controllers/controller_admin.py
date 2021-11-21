@@ -2,6 +2,8 @@ from flask import render_template, request, redirect,session
 
 from flask_app import app
 from flask_app.models.model_admin import Admin
+from flask_app.models.model_inventory import Inventory
+
 
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
@@ -21,7 +23,11 @@ def dashboard():
         return redirect("/")
 
     admin = Admin.by_id({"id": session["uuid"]})
-    return render_template("admin_dashboard.html", admin = admin)
+    return render_template(
+        "admin_dashboard.html",
+        admin = admin,
+        inventories = Inventory.all_items()
+    )
 
 
 # display log in page
