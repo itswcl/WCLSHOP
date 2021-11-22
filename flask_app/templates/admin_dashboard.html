@@ -30,8 +30,12 @@
                             <td>{{ inventory.name }}</td>
                             <td>{{ inventory.size }}</td>
                             <td>${{ inventory.price / 100 }}</td>
-                            <td>{{ inventory.availability }}</td>
-                            <td>{{ inventory.category_name }}</td>
+                            {% if inventory.availability == 1 %}
+                                <td>YES</td>
+                            {% else %}
+                                <td>NO</td>
+                            {% endif %}
+                            <td>{{ categories[inventory.category_id]["category_name"] }}</td>
                             <td><a href="/shop/{{ inventory.id }}/delete">Delete</a></td>
                         </tr>
                     {% endfor %}

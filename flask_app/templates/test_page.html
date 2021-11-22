@@ -38,6 +38,11 @@
                 <li class="list-inline-item list-group">
                     <a href="/" class="text-decoration-none text-dark">WCL</a>
                 </li>
+                {% if session %}
+                <li class="list-inline-item list-group">
+                    <a href="/admin" class="text-decoration-none text-dark">Admin</a>
+                </li>
+                {% endif %}
             </ul>
         </nav>
     </div>

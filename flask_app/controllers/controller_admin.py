@@ -3,6 +3,7 @@ from flask import render_template, request, redirect,session
 from flask_app import app
 from flask_app.models.model_admin import Admin
 from flask_app.models.model_inventory import Inventory
+from flask_app.models.model_category import Category
 
 
 from flask_bcrypt import Bcrypt
@@ -23,10 +24,17 @@ def dashboard():
         return redirect("/")
 
     admin = Admin.by_id({"id": session["uuid"]})
+    inventories = Inventory.all_items()
+    categories = {}
+
+    for inventory in inventories:
+        categories[inventory.category_id] = Category.one_category({"id": inventory.category_id})
+
     return render_template(
         "admin_dashboard.html",
         admin = admin,
-        inventories = Inventory.all_items()
+        inventories = inventories,
+        categories = categories
     )
 
 
